@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/loggedIn"
+        android:title="Koti"
+        android:icon="@drawable/ic_baseline_home_24"/>
+
+    <item
+        android:id="@+id/addService"
+        android:title="Lisää"
+        android:icon="@drawable/ic_baseline_add_24" />
+
+    <item
+        android:id="@+id/logOut"
+        android:title="Kirjaudu ulos"
+        android:icon="@drawable/ic_baseline_power_settings_new_24" />
+
+</menu>
