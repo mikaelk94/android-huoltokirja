@@ -53,7 +53,7 @@ public class AddService extends AppCompatActivity {
                 String search = "user/" + username + "/vehicles";
                 //reference.child(search).setValue(vehicleInfo);
                 reference = FirebaseDatabase.getInstance().getReference().child(search);
-                reference.child(vehicleInfo.getVehicleInfo()).child("huollot").setValue("");
+                reference.child(vehicleInfo.getVehicleInfo()).child("services").setValue("");
                 Toast.makeText(AddService.this,"Ajoneuvo Lisätty",Toast.LENGTH_LONG).show();
                 makeModel.setText("");
 

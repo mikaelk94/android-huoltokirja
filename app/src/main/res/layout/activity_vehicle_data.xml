@@ -51,10 +51,10 @@
 
     <ListView
         android:id="@+id/VehicleDataList"
-        android:layout_width="439dp"
-        android:layout_height="456dp"
+        android:layout_width="319dp"
+        android:layout_height="408dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
