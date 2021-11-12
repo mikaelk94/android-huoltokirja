@@ -20,11 +20,12 @@ public class Logout extends AppCompatActivity {
         setContentView(R.layout.activity_logout);
 
         this.setTitle("Kirjaudu Ulos");
+        String username = getIntent().getStringExtra("username");
 
         bottomNavigationView = findViewById(R.id.bottomNavigationview);
         bottomNavigationView.setSelectedItemId(R.id.logOut);
 
-        // Tähän pitää nyt sitten tehdä explicit intent tms että menee tiedot perille
+        // Tähän rakennettu explicit intent jotta username menee aina uuteen activityyn
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -32,14 +33,16 @@ public class Logout extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.addService:
-                        startActivity(new Intent(getApplicationContext(),AddService.class));
-                        overridePendingTransition(0,0);
+                        Intent explicit = new Intent(Logout.this, huolto.kirja.AddService.class);
+                        explicit.putExtra("username",username);
+                        startActivity(explicit);
                         return true;
                     case R.id.logOut:
                         return true;
                     case R.id.loggedIn:
-                        startActivity(new Intent(getApplicationContext(),LoggedIn.class));
-                        overridePendingTransition(0,0);
+                        Intent explicit2 = new Intent(Logout.this, huolto.kirja.LoggedIn.class);
+                        explicit2.putExtra("username",username);
+                        startActivity(explicit2);
                         return true;
 
                 }
