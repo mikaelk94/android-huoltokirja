@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Huoltokirja">
-        <activity android:name=".Logout"></activity>
+        <activity
+            android:name=".VehicleData"
+            android:exported="false" />
+        <activity android:name=".Logout" />
         <activity android:name=".AddService" />
         <activity android:name=".LoggedIn" />
         <activity android:name=".Register" />

@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class LoggedIn extends AppCompatActivity {
     TextView UsernameView;
@@ -30,8 +35,8 @@ public class LoggedIn extends AppCompatActivity {
     ArrayList<String> ArrayList;
     // database reference variable
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
-
-
+    //dänkkilista
+    List<String> NameList = new ArrayList<String>();
 
 
     @Override
@@ -53,10 +58,14 @@ public class LoggedIn extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
         UsernameView.setText(username);
 
+        // debuggia
+        String search = "user/" + username;
+        reference = FirebaseDatabase.getInstance().getReference().child(search);
+
         bottomNavigationView = findViewById(R.id.bottomNavigationview);
         bottomNavigationView.setSelectedItemId(R.id.loggedIn);
 
-        // Tähän pitää nyt sitten tehdä explicit intent tms että menee tiedot perille
+        // Tähän rakennettu nyt explicit intent jotta username menee aina uuteen activityyn
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -64,9 +73,6 @@ public class LoggedIn extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.addService:
-                       /*startActivity(new Intent(getApplicationContext(),AddService.class));
-                        overridePendingTransition(0,0);*/
-                        // onnistuu myös näin expliciittisellä intentillä, mutta pitäisi tallentaa jotenkin koska aktiviteettia vaihdettaessa häviää username
                         Intent explicit = new Intent(LoggedIn.this, huolto.kirja.AddService.class);
                         explicit.putExtra("username",username);
                         startActivity(explicit);
@@ -74,8 +80,9 @@ public class LoggedIn extends AppCompatActivity {
                     case R.id.loggedIn:
                         return true;
                     case R.id.logOut:
-                        startActivity(new Intent(getApplicationContext(),Logout.class));
-                        overridePendingTransition(0,0);
+                        Intent explicit2 = new Intent(LoggedIn.this, huolto.kirja.Logout.class);
+                        explicit2.putExtra("username",username);
+                        startActivity(explicit2);
                         return true;
 
                 }
@@ -84,23 +91,39 @@ public class LoggedIn extends AppCompatActivity {
         });
 
 
+
     }
 
     public void initializeListView() {
         // creating new array adapter for listview
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ArrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ArrayList);
         String username = getIntent().getStringExtra("username");
-        String haku = "user/" + username;
+        String search = "user/" + username + "/vehicles";
+
+
 
         // getting the firebase reference
-        reference = FirebaseDatabase.getInstance().getReference().child(haku);
+        reference = FirebaseDatabase.getInstance().getReference().child(search);
 
         //calling method for add child event
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 // this method is called when new child is added to our database
-                ArrayList.add(snapshot.getValue(String.class));
+                Iterable <DataSnapshot> dataSnapshotIterable = snapshot.getChildren();
+                for(DataSnapshot d: dataSnapshotIterable) {
+                    Iterable <DataSnapshot> debug = d.getChildren();
+
+                }
+                ArrayList.add(snapshot.getKey());
+                String vehiclename = snapshot.getKey();
+                NameList.add(vehiclename);
+                /* String vehicle = snapshot.child("vehicles").child("-MoIYfnOGcuJASSDzrrS").getValue(String.class);
+                System.out.println("***********************************");
+                System.out.println(vehicle);
+                System.out.println("***********************************");
+
+                */
                 adapter.notifyDataSetChanged();
 
             }
@@ -132,6 +155,20 @@ public class LoggedIn extends AppCompatActivity {
         });
         // setting an adapter to our list view
         list.setAdapter(adapter);
+        // onclickevent listener
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent explicit = new Intent(LoggedIn.this, huolto.kirja.VehicleData.class);
+                System.out.println(NameList.get(position));
+                explicit.putExtra("username",username);
+                explicit.putExtra("vehicleName", NameList.get(position));
+
+                startActivity(explicit);
+
+            }
+        });
+
     }
 
 
