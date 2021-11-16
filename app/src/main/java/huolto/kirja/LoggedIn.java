@@ -35,7 +35,6 @@ public class LoggedIn extends AppCompatActivity {
     ArrayList<String> ArrayList;
     // database reference variable
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
-    //dänkkilista
     List<String> NameList = new ArrayList<String>();
 
 

@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
                             if(passwordFromDB.equals(passGiven)){
                                 String usernameFromDB = snapshot.child(userGiven).child("username").getValue(String.class);
-                                // tähän sitten myöhemmin databasesta moottoripyörän tiedot ja huollot jne
                                 Intent explicit = new Intent(MainActivity.this, huolto.kirja.LoggedIn.class);
                                 explicit.putExtra("username",usernameFromDB);
                                 startActivity(explicit);
