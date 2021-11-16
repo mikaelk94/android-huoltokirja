@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Huoltokirja</string>
+    <string name="username">Käyttäjätunnus</string>
+    <string name="password">Salasana</string>
+    <string name="login">Kirjaudu</string>
+    <string name="not_registered">Eikö ole tunnuksia?</string>
+    <string name="register">Luo tunnus</string>
+    <string name="add_vehicle">Lisää ajoneuvo</string>
+    <string name="car_brand">Merkki/Malli</string>
+    <string name="create_user">Luo Käyttäjä</string>
+    <string name="add_service">Lisää Huolto</string>
+    <string name="add_distance">Lisää kilometrit</string>
 </resources>

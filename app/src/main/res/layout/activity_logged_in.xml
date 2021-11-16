@@ -7,7 +7,7 @@
     tools:context=".LoggedIn">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationview"
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/purple_500"
@@ -22,7 +22,7 @@
         android:id="@+id/list"
         android:layout_width="306dp"
         android:layout_height="356dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationview"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />

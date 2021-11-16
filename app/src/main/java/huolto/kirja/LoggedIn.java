@@ -62,7 +62,7 @@ public class LoggedIn extends AppCompatActivity {
         String search = "user/" + username;
         reference = FirebaseDatabase.getInstance().getReference().child(search);
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationview);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.loggedIn);
 
         // Tähän rakennettu nyt explicit intent jotta username menee aina uuteen activityyn
