@@ -22,7 +22,7 @@ public class Logout extends AppCompatActivity {
         this.setTitle("Kirjaudu Ulos");
         String username = getIntent().getStringExtra("username");
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationview);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.logOut);
 
         // Tähän rakennettu explicit intent jotta username menee aina uuteen activityyn

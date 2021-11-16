@@ -36,7 +36,7 @@ public class AddService extends AppCompatActivity {
 
         this.setTitle("Lisää Ajoneuvo");
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationview);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.addService);
 
         makeModel = findViewById(R.id.editTextVehicleName);

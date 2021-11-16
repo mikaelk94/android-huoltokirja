@@ -10,14 +10,12 @@
         android:id="@+id/editTextAddVService"
         android:layout_width="219dp"
         android:layout_height="57dp"
-        android:layout_marginStart="96dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="105dp"
         android:ems="10"
-        android:hint="Lisää Huolto"
+        android:hint="@string/add_service"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,14 +23,12 @@
         android:id="@+id/editTextAddVKilometers"
         android:layout_width="221dp"
         android:layout_height="55dp"
-        android:layout_marginStart="96dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="103dp"
         android:ems="10"
-        android:hint="Lisää kilometrit"
+        android:hint="@string/add_distance"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextAddVService" />
 
@@ -40,12 +36,10 @@
         android:id="@+id/buttonAddVService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="188dp"
-        android:text="Lisää huolto"
+        android:text="@string/add_service"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextAddVKilometers" />
 
@@ -53,9 +47,7 @@
         android:id="@+id/VehicleDataList"
         android:layout_width="319dp"
         android:layout_height="408dp"
-        android:layout_marginStart="1dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAddVService" />
