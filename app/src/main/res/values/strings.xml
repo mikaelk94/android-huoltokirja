@@ -10,4 +10,5 @@
     <string name="create_user">Luo Käyttäjä</string>
     <string name="add_service">Lisää Huolto</string>
     <string name="add_distance">Lisää kilometrit</string>
+    <string name="delete_vehicle">Poista</string>
 </resources>

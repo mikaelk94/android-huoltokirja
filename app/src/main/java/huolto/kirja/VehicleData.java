@@ -23,6 +23,7 @@ public class VehicleData extends AppCompatActivity {
     EditText addService;
     EditText addKilometers;
     Button saveService;
+    Button btnDelete;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
     DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("user");
 
@@ -56,6 +57,7 @@ public class VehicleData extends AppCompatActivity {
         addService = findViewById(R.id.editTextAddVService);
         addKilometers = findViewById(R.id.editTextAddVKilometers);
         saveService = findViewById(R.id.buttonAddVService);
+        btnDelete = findViewById(R.id.buttonDelete);
 
         saveService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,14 @@ public class VehicleData extends AppCompatActivity {
                 reference.child(username).child("vehicles").child(vehiclename).child("services").push().setValue(serviceInfo);
                 addKilometers.setText("");
                 addService.setText("");
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reference.child(username).child("vehicles").child(vehiclename).removeValue();
+
             }
         });
 
