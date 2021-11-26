@@ -136,8 +136,8 @@ public class LoggedIn extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                snapshot.getChildren();
 
-                ArrayList.remove(snapshot.getValue(String.class));
                 adapter.notifyDataSetChanged();
 
             }
