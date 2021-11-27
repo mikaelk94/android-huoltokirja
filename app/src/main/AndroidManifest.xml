@@ -13,7 +13,7 @@
             android:name=".VehicleData"
             android:exported="false" />
         <activity android:name=".Logout" />
-        <activity android:name=".AddService" />
+        <activity android:name=".AddVehicle" />
         <activity android:name=".LoggedIn" />
         <activity android:name=".Register" />
         <activity android:name=".MainActivity">

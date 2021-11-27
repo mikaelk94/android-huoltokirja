@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,10 +17,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonCreate;
-    Button buttonLogin;
-    EditText accountName;
-    EditText passWord;
+    Button btnCreateAccount;
+    Button btnLogin;
+    EditText etUserName;
+    EditText etPassWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,61 +28,52 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toast.makeText(MainActivity.this,"Firebase yhteys muodostettu",Toast.LENGTH_LONG).show();
 
-        buttonCreate = findViewById(R.id.buttonCreateAcc);
-        buttonLogin = findViewById(R.id.buttonKirjaudu);
-        accountName = findViewById(R.id.editTextKayttaja);
-        passWord = findViewById(R.id.editTextSalasana);
+        btnCreateAccount = findViewById(R.id.buttonCreateAcc);
+        btnLogin = findViewById(R.id.buttonKirjaudu);
+        etUserName = findViewById(R.id.editTextKayttaja);
+        etPassWord = findViewById(R.id.editTextSalasana);
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnLogin.setOnClickListener(view -> {
 
-                String userGiven = accountName.getText().toString();
-                String passGiven = passWord.getText().toString();
+            String userGiven = etUserName.getText().toString();
+            String passGiven = etPassWord.getText().toString();
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
-                Query checkUser = reference.orderByChild("username").equalTo(userGiven);
-                checkUser.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            String passwordFromDB = snapshot.child(userGiven).child("userpassword").getValue(String.class);
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
+            Query checkUser = reference.orderByChild("username").equalTo(userGiven);
+            checkUser.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        String passwordFromDB = snapshot.child(userGiven).child("userpassword").getValue(String.class);
 
-                            if(passwordFromDB.equals(passGiven)){
-                                String usernameFromDB = snapshot.child(userGiven).child("username").getValue(String.class);
-                                Intent explicit = new Intent(MainActivity.this, huolto.kirja.LoggedIn.class);
-                                explicit.putExtra("username",usernameFromDB);
-                                startActivity(explicit);
-                            }
-                            else {
-                                passWord.setError("Väärä salasana");
-                            }
+                        if(passwordFromDB.equals(passGiven)){
+                            String usernameFromDB = snapshot.child(userGiven).child("username").getValue(String.class);
+                            Intent explicit = new Intent(MainActivity.this, LoggedIn.class);
+                            explicit.putExtra("username",usernameFromDB);
+                            startActivity(explicit);
                         }
                         else {
-                            accountName.setError("Käyttäjää ei ole");
+                            etPassWord.setError("Väärä salasana");
                         }
                     }
-
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                    else {
+                        etUserName.setError("Käyttäjää ei ole");
                     }
-                });
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
+                }
+            });
         });
 
 
-        buttonCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnCreateAccount.setOnClickListener(view -> {
 
-                Intent explicit = new Intent(MainActivity.this, huolto.kirja.Register.class);
-                startActivity(explicit);
+            Intent explicit = new Intent(MainActivity.this, Register.class);
+            startActivity(explicit);
 
-            }
         });
     }
 }
