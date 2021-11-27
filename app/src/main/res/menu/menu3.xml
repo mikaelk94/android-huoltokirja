@@ -6,4 +6,9 @@
         android:title="Poista Ajoneuvo"
         app:showAsAction="never"
         android:icon="@drawable/ic_baseline_delete_24"/>
+    <item
+        android:id="@+id/PrintThisVehicle"
+        android:title="Tulosta Tiedot"
+        app:showAsAction="never" />
+
 </menu>
