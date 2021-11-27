@@ -5,6 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,7 +26,6 @@ public class VehicleData extends AppCompatActivity {
     EditText addService;
     EditText addKilometers;
     Button saveService;
-    Button btnDelete;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
     DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("user");
 
@@ -57,7 +59,7 @@ public class VehicleData extends AppCompatActivity {
         addService = findViewById(R.id.editTextAddVService);
         addKilometers = findViewById(R.id.editTextAddVKilometers);
         saveService = findViewById(R.id.buttonAddVService);
-        btnDelete = findViewById(R.id.buttonDelete);
+
 
         saveService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +73,24 @@ public class VehicleData extends AppCompatActivity {
             }
         });
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu3, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.deleteThisVehicle:
+                String username = getIntent().getStringExtra("username");
+                String vehiclename = getIntent().getStringExtra("vehicleName");
                 reference.child(username).child("vehicles").child(vehiclename).removeValue();
-
-            }
-        });
-
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initializeListView(){

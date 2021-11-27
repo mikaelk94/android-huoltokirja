@@ -52,17 +52,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAddVService" />
 
-    <Button
-        android:id="@+id/buttonDelete"
-        android:layout_width="91dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/delete_vehicle"
-        app:layout_constraintBottom_toTopOf="@+id/VehicleDataList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintStart_toEndOf="@+id/buttonAddVService"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddVKilometers"
-        app:layout_constraintVertical_bias="0.272" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
