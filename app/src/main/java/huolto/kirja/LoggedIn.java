@@ -3,11 +3,9 @@ package huolto.kirja;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,10 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class LoggedIn extends AppCompatActivity {
-    TextView UsernameView;
+    TextView tvUsername;
     BottomNavigationView bottomNavigationView;
     // for creating variables for list view
     private ListView list;
@@ -46,16 +43,16 @@ public class LoggedIn extends AppCompatActivity {
         // initializing variables for listview
         list = findViewById(R.id.list);
 
-        // initialazing new array list
+        // initializing new array list
         ArrayList = new ArrayList<String>();
 
         initializeListView();
 
         this.setTitle("Koti");
 
-        UsernameView = findViewById(R.id.textViewUsername);
+        tvUsername = findViewById(R.id.textViewUsername);
         String username = getIntent().getStringExtra("username");
-        UsernameView.setText(username);
+        tvUsername.setText(username);
 
         // debuggia
         String search = "user/" + username;
@@ -72,7 +69,7 @@ public class LoggedIn extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.addService:
-                        Intent explicit = new Intent(LoggedIn.this, huolto.kirja.AddService.class);
+                        Intent explicit = new Intent(LoggedIn.this, AddVehicle.class);
                         explicit.putExtra("username",username);
                         startActivity(explicit);
                         return true;
@@ -83,14 +80,10 @@ public class LoggedIn extends AppCompatActivity {
                         explicit2.putExtra("username",username);
                         startActivity(explicit2);
                         return true;
-
                 }
                 return false;
             }
         });
-
-
-
     }
 
     public void initializeListView() {
@@ -98,8 +91,6 @@ public class LoggedIn extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ArrayList);
         String username = getIntent().getStringExtra("username");
         String search = "user/" + username + "/vehicles";
-
-
 
         // getting the firebase reference
         reference = FirebaseDatabase.getInstance().getReference().child(search);
@@ -152,23 +143,19 @@ public class LoggedIn extends AppCompatActivity {
 
             }
         });
+
         // setting an adapter to our list view
         list.setAdapter(adapter);
         // onclickevent listener
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent explicit = new Intent(LoggedIn.this, huolto.kirja.VehicleData.class);
+                Intent explicit = new Intent(LoggedIn.this, VehicleData.class);
                 System.out.println(NameList.get(position));
                 explicit.putExtra("username",username);
                 explicit.putExtra("vehicleName", NameList.get(position));
-
                 startActivity(explicit);
-
             }
         });
-
     }
-
-
 }

@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,9 +32,9 @@ import java.io.Writer;
 import java.util.ArrayList;
 
 public class VehicleData extends AppCompatActivity {
-    EditText addService;
-    EditText addKilometers;
-    Button saveService;
+    EditText etAddService;
+    EditText etAddKilometers;
+    Button btnAddService;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
     DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("user");
 
@@ -45,9 +44,6 @@ public class VehicleData extends AppCompatActivity {
     // new array list
     ArrayList<String> lvArrayList;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,32 +51,28 @@ public class VehicleData extends AppCompatActivity {
         this.setTitle("VehicleData");
 
         // initializing variables for listview
-        lv = findViewById(R.id.VehicleDataList);
+        lv = findViewById(R.id.listViewVehicleDataList);
 
         // initializing array list
-        lvArrayList = new ArrayList<String>();
+        lvArrayList = new ArrayList<>();
 
         initializeListView();
 
         String username = getIntent().getStringExtra("username");
-        String vehiclename = getIntent().getStringExtra("vehicleName");
-      //  System.out.println("päästiin lopultakin tänne gg ez 4h");
+        String vehicleName = getIntent().getStringExtra("vehicleName");
 
-        addService = findViewById(R.id.editTextAddVService);
-        addKilometers = findViewById(R.id.editTextAddVKilometers);
-        saveService = findViewById(R.id.buttonAddVService);
+        etAddService = findViewById(R.id.editTextAddService);
+        etAddKilometers = findViewById(R.id.editTextAddKilometers);
+        btnAddService = findViewById(R.id.buttonAddService);
 
 
-        saveService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String kilometers = addKilometers.getText().toString();
-                String service = addService.getText().toString();
-                ServiceInfo serviceInfo = new ServiceInfo(service,kilometers);
-                reference.child(username).child("vehicles").child(vehiclename).child("services").push().setValue(serviceInfo);
-                addKilometers.setText("");
-                addService.setText("");
-            }
+        btnAddService.setOnClickListener(v -> {
+            String kilometers = etAddKilometers.getText().toString();
+            String service = etAddService.getText().toString();
+            ServiceInfo serviceInfo = new ServiceInfo(service,kilometers);
+            reference.child(username).child("vehicles").child(vehicleName).child("services").push().setValue(serviceInfo);
+            etAddKilometers.setText("");
+            etAddService.setText("");
         });
 
     }
@@ -92,17 +84,14 @@ public class VehicleData extends AppCompatActivity {
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteThisVehicle:
                 String username = getIntent().getStringExtra("username");
-                String vehiclename = getIntent().getStringExtra("vehicleName");
-                reference.child(username).child("vehicles").child(vehiclename).removeValue();
+                String vehicleName = getIntent().getStringExtra("vehicleName");
+                reference.child(username).child("vehicles").child(vehicleName).removeValue();
             case R.id.PrintThisVehicle:
-                
 
         }
         return super.onOptionsItemSelected(item);
@@ -110,32 +99,28 @@ public class VehicleData extends AppCompatActivity {
 
     private void initializeListView(){
         // new array adapter for listview
-         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, lvArrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, lvArrayList);
         String username = getIntent().getStringExtra("username");
-        String vehiclename = getIntent().getStringExtra("vehicleName");
-        String search = "user/" + username + "/" + "vehicles/" + vehiclename;
+        String vehicleName = getIntent().getStringExtra("vehicleName");
+        String search = "user/" + username + "/" + "vehicles/" + vehicleName;
 
         // getting database reference
         reference2 = FirebaseDatabase.getInstance().getReference().child(search);
+
         // adding child event listener
         reference2.addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Iterable <DataSnapshot> dataSnapshotIterable = snapshot.getChildren();
 
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                     String kilometers = postSnapshot.child("kilometers").getValue(String.class);
                     String service = postSnapshot.child("service").getValue(String.class);
                     lvArrayList.add(service + " " + kilometers + " km");
-                    //lvArrayList.add(service);
-
-                    //konsoliin tulostus debugaamista varten
-                    //Log.d("TAG", "Values: " + time);
+                    // for debugging
+                    // log.TAG", "Values: " + time);
                 }
-
-
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override
