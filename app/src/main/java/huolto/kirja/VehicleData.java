@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -89,7 +90,15 @@ public class VehicleData extends AppCompatActivity {
                 String vehicleName = getIntent().getStringExtra("vehicleName");
                 reference.child(username).child("vehicles").child(vehicleName).removeValue();
             case R.id.PrintThisVehicle:
-                writeToFile("test");
+                String vehicleToFile = getIntent().getStringExtra("vehicleName");
+                String serviceToFile = "";
+                serviceToFile = vehicleToFile + "\n";
+                for (String index : lvArrayList) {
+                    String serviceToprint = index;
+                    serviceToFile = serviceToFile + "\n" + serviceToprint;
+                    //System.out.println(index);
+                }
+                writeToFile(serviceToFile);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -98,15 +107,15 @@ public class VehicleData extends AppCompatActivity {
         Context context = this.getApplicationContext();
         try {
             File path = context.getExternalFilesDir(null);
-            File file = new File(path,"data.txt");
+            File file = new File(path,"ServiceHistory.txt");
             FileOutputStream stream = new FileOutputStream(file);
             stream.write(data.getBytes(StandardCharsets.UTF_8));
             stream.close();
-            Toast.makeText(this,"Saved to: " + getExternalFilesDir(null), Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Tallennettu: " + getExternalFilesDir(null), Toast.LENGTH_LONG).show();
         }
         catch (IOException e) {
-            Toast.makeText(this, "File write failed: " + e.toString(), Toast.LENGTH_LONG).show();
-            Log.e("Exception", "File write failed: " + e.toString());
+            Toast.makeText(this, "Tiedoston luonti onnistui: " + e.toString(), Toast.LENGTH_LONG).show();
+            Log.e("Exception", "Tiedoston luonti epäonnistui: " + e.toString());
         }
     }
 
