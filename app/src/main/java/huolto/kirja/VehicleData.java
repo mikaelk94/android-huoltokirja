@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,21 +14,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.content.Context;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class VehicleData extends AppCompatActivity {
@@ -92,9 +89,25 @@ public class VehicleData extends AppCompatActivity {
                 String vehicleName = getIntent().getStringExtra("vehicleName");
                 reference.child(username).child("vehicles").child(vehicleName).removeValue();
             case R.id.PrintThisVehicle:
-
+                writeToFile("test");
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void writeToFile(String data) {
+        Context context = this.getApplicationContext();
+        try {
+            File path = context.getExternalFilesDir(null);
+            File file = new File(path,"data.txt");
+            FileOutputStream stream = new FileOutputStream(file);
+            stream.write(data.getBytes(StandardCharsets.UTF_8));
+            stream.close();
+            Toast.makeText(this,"Saved to: " + getExternalFilesDir(null), Toast.LENGTH_LONG).show();
+        }
+        catch (IOException e) {
+            Toast.makeText(this, "File write failed: " + e.toString(), Toast.LENGTH_LONG).show();
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
     private void initializeListView(){
