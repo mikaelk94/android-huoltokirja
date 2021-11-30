@@ -2,8 +2,10 @@ package huolto.kirja;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -88,7 +90,8 @@ public class VehicleData extends AppCompatActivity {
             case R.id.deleteThisVehicle:
                 String username = getIntent().getStringExtra("username");
                 String vehicleName = getIntent().getStringExtra("vehicleName");
-                reference.child(username).child("vehicles").child(vehicleName).removeValue();
+                removeVehicleAlert(username, vehicleName);
+                break;
             case R.id.PrintThisVehicle:
                 String vehicleToFile = getIntent().getStringExtra("vehicleName");
                 String serviceToFile = "";
@@ -99,6 +102,7 @@ public class VehicleData extends AppCompatActivity {
                     //System.out.println(index);
                 }
                 writeToFile(serviceToFile);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -117,6 +121,24 @@ public class VehicleData extends AppCompatActivity {
             Toast.makeText(this, "Tiedoston luonti onnistui: " + e.toString(), Toast.LENGTH_LONG).show();
             Log.e("Exception", "Tiedoston luonti epäonnistui: " + e.toString());
         }
+    }
+
+    // Function for displaying the AlertDialog when removing a vehicle
+    private void removeVehicleAlert(String username, String vehicleName) {
+        new AlertDialog.Builder(this)
+                // Message to be displayed on the alert
+                .setMessage("Poista " + vehicleName + "?")
+                // Positive button onclick event
+                .setPositiveButton("Poista", (dialogInterface, i) -> {
+                    reference.child(username).child("vehicles").child(vehicleName).removeValue();
+                    Toast.makeText(this, vehicleName + " poistettu", Toast.LENGTH_LONG).show();
+                    finish();
+                })
+                // Negative button onclick event
+                .setNegativeButton("Peruuta", (dialogInterface, i) -> {
+
+                })
+                .show();
     }
 
     private void initializeListView(){
