@@ -109,9 +109,10 @@ public class VehicleData extends AppCompatActivity {
 
     private void writeToFile(String data) {
         Context context = this.getApplicationContext();
+        String vehicleName = getIntent().getStringExtra("vehicleName");
         try {
             File path = context.getExternalFilesDir(null);
-            File file = new File(path,"ServiceHistory.txt");
+            File file = new File(path,vehicleName + "ServiceHistory.txt");
             FileOutputStream stream = new FileOutputStream(file);
             stream.write(data.getBytes(StandardCharsets.UTF_8));
             stream.close();
