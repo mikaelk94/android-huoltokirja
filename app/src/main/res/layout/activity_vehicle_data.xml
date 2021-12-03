@@ -6,50 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".VehicleData">
 
-    <EditText
-        android:id="@+id/editTextAddService"
-        android:layout_width="219dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="@string/add_service"
-        android:inputType="textPersonName"
+    <TextView
+        android:id="@+id/textViewVehicleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextAddKilometers"
-        android:layout_width="221dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="@string/add_distance"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddService" />
-
-    <Button
-        android:id="@+id/buttonAddService"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="@string/add_service"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddKilometers" />
-
     <ListView
         android:id="@+id/listViewVehicleDataList"
         android:layout_width="319dp"
         android:layout_height="408dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddService" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewVehicleName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
