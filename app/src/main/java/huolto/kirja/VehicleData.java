@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 
@@ -32,9 +35,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class VehicleData extends AppCompatActivity {
-    EditText etAddService;
-    EditText etAddKilometers;
-    Button btnAddService;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
     DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("user");
 
@@ -48,7 +48,9 @@ public class VehicleData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_data);
-        this.setTitle("VehicleData");
+        this.setTitle("Huoltohistoria");
+
+        String vehicleName = getIntent().getStringExtra("vehicleName");
 
         // initializing variables for listview
         lv = findViewById(R.id.listViewVehicleDataList);
@@ -58,23 +60,9 @@ public class VehicleData extends AppCompatActivity {
 
         initializeListView();
 
-        String username = getIntent().getStringExtra("username");
-        String vehicleName = getIntent().getStringExtra("vehicleName");
-
-        etAddService = findViewById(R.id.editTextAddService);
-        etAddKilometers = findViewById(R.id.editTextAddKilometers);
-        btnAddService = findViewById(R.id.buttonAddService);
-
-
-        btnAddService.setOnClickListener(v -> {
-            String kilometers = etAddKilometers.getText().toString();
-            String service = etAddService.getText().toString();
-            ServiceInfo serviceInfo = new ServiceInfo(service,kilometers);
-            reference.child(username).child("vehicles").child(vehicleName).child("services").push().setValue(serviceInfo);
-            etAddKilometers.setText("");
-            etAddService.setText("");
-        });
-
+        TextView tvVehicleName;
+        tvVehicleName = findViewById(R.id.textViewVehicleName);
+        tvVehicleName.setText(vehicleName);
     }
 
     @Override
@@ -86,10 +74,17 @@ public class VehicleData extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        String username = getIntent().getStringExtra("username");
+        String vehicleName = getIntent().getStringExtra("vehicleName");
+
         switch (item.getItemId()) {
+            case R.id.AddNewService:
+                Intent explicit = new Intent(VehicleData.this, AddService.class);
+                explicit.putExtra("username", username);
+                explicit.putExtra("vehicleName", vehicleName);
+                startActivity(explicit);
+                break;
             case R.id.deleteThisVehicle:
-                String username = getIntent().getStringExtra("username");
-                String vehicleName = getIntent().getStringExtra("vehicleName");
                 removeVehicleAlert(username, vehicleName);
                 break;
             case R.id.PrintThisVehicle:

@@ -2,13 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/deleteThisVehicle"
-        android:title="Poista Ajoneuvo"
-        app:showAsAction="never"
-        android:icon="@drawable/ic_baseline_delete_24"/>
+        android:id="@+id/AddNewService"
+        android:title="Lisää huolto"
+        app:showAsAction="never" />
     <item
         android:id="@+id/PrintThisVehicle"
         android:title="Tulosta Tiedot"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/deleteThisVehicle"
+        android:title="Poista Ajoneuvo"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_delete_24"/>
 </menu>

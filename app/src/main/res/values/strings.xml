@@ -11,4 +11,6 @@
     <string name="add_service">Lisää Huolto</string>
     <string name="add_distance">Lisää kilometrit</string>
     <string name="delete_vehicle">Poista</string>
+    <string name="add_date">Päivämäärä</string>
+    <string name="additional_information">Lisätietoja</string>
 </resources>
