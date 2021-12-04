@@ -160,8 +160,6 @@ public class VehicleData extends AppCompatActivity {
                     String eol = System.getProperty("line.separator");
                     lvArrayList.add(service + " " + kilometers + " km" + "\n" +"Päivämäärä: " + date
                             + "\n" + "Lisätiedot: " + information + "\n");
-
-
                 }
                 adapter.notifyDataSetChanged();
             }
