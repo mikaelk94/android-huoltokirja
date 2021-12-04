@@ -93,7 +93,6 @@ public class VehicleData extends AppCompatActivity {
                 for (String index : lvArrayList) {
                     String serviceToprint = index;
                     serviceToFile = serviceToFile + "\n" + serviceToprint;
-                    //System.out.println(index);
                 }
                 writeToFile(serviceToFile);
                 break;
@@ -160,8 +159,6 @@ public class VehicleData extends AppCompatActivity {
                     String eol = System.getProperty("line.separator");
                     lvArrayList.add(service + " " + kilometers + " km" + "\n" +"Päivämäärä: " + date
                             + "\n" + "Lisätiedot: " + information + "\n");
-
-
                 }
                 adapter.notifyDataSetChanged();
             }
