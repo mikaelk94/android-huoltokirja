@@ -67,8 +67,7 @@ public class VehicleData extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu3, menu);
+        getMenuInflater().inflate(R.menu.menu3,menu);
         return true;
     }
 
@@ -139,7 +138,7 @@ public class VehicleData extends AppCompatActivity {
 
     private void initializeListView(){
         // new array adapter for listview
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, lvArrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lvArrayList);
         String username = getIntent().getStringExtra("username");
         String vehicleName = getIntent().getStringExtra("vehicleName");
         String search = "user/" + username + "/" + "vehicles/" + vehicleName;
@@ -156,9 +155,13 @@ public class VehicleData extends AppCompatActivity {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                     String kilometers = postSnapshot.child("kilometers").getValue(String.class);
                     String service = postSnapshot.child("service").getValue(String.class);
-                    lvArrayList.add(service + " " + kilometers + " km");
-                    // for debugging
-                    // log.TAG", "Values: " + time);
+                    String date = postSnapshot.child("date").getValue(String.class);
+                    String information = postSnapshot.child("information").getValue(String.class);
+                    String eol = System.getProperty("line.separator");
+                    lvArrayList.add(service + " " + kilometers + " km" + "\n" +"Päivämäärä: " + date
+                            + "\n" + "Lisätiedot: " + information + "\n");
+
+
                 }
                 adapter.notifyDataSetChanged();
             }
