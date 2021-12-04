@@ -16,39 +16,9 @@ public class Logout extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logout);
+        this.finishAffinity();
 
-        this.setTitle("Kirjaudu Ulos");
-        String username = getIntent().getStringExtra("username");
-
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.logOut);
-
-        // Tähän rakennettu explicit intent jotta username menee aina uuteen activityyn
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId())
-                {
-                    case R.id.addService:
-                        Intent explicit = new Intent(Logout.this, AddVehicle.class);
-                        explicit.putExtra("username",username);
-                        startActivity(explicit);
-                        return true;
-                    case R.id.logOut:
-                        return true;
-                    case R.id.loggedIn:
-                        Intent explicit2 = new Intent(Logout.this, huolto.kirja.LoggedIn.class);
-                        explicit2.putExtra("username",username);
-                        startActivity(explicit2);
-                        return true;
 
                 }
-                return false;
-            }
-        });
 
-
-    }
-}
+   }
