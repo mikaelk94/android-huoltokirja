@@ -2,6 +2,7 @@ package huolto.kirja;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
@@ -52,6 +53,10 @@ public class VehicleData extends AppCompatActivity {
 
         String vehicleName = getIntent().getStringExtra("vehicleName");
 
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         // initializing variables for listview
         lv = findViewById(R.id.listViewVehicleDataList);
 
@@ -65,6 +70,7 @@ public class VehicleData extends AppCompatActivity {
         tvVehicleName.setText(vehicleName);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu3,menu);
@@ -77,6 +83,9 @@ public class VehicleData extends AppCompatActivity {
         String vehicleName = getIntent().getStringExtra("vehicleName");
 
         switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
             case R.id.AddNewService:
                 Intent explicit = new Intent(VehicleData.this, AddService.class);
                 explicit.putExtra("username", username);
