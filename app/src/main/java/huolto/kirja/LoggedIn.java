@@ -79,7 +79,7 @@ public class LoggedIn extends AppCompatActivity {
                         return true;
                     case R.id.logOut:
                         logoutAlert();
-                        return true;
+                        //return true;
                 }
                 return false;
             }

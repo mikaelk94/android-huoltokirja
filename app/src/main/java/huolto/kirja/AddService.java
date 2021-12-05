@@ -1,9 +1,12 @@
 package huolto.kirja;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,6 +34,10 @@ public class AddService extends AppCompatActivity {
         String vehicleName = getIntent().getStringExtra("vehicleName");
 
         this.setTitle("Uusi huolto");
+
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         EditText etAddService;
         EditText etAddKilometers;
@@ -64,4 +71,17 @@ public class AddService extends AppCompatActivity {
             startActivity(explicit);
         });
     }
+
+    // this event will enable the back
+    // function to the button on press
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
