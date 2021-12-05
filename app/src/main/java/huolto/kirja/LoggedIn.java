@@ -2,6 +2,7 @@ package huolto.kirja;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.ChildEventListener;
@@ -76,14 +78,27 @@ public class LoggedIn extends AppCompatActivity {
                     case R.id.loggedIn:
                         return true;
                     case R.id.logOut:
-                        Intent explicit2 = new Intent(LoggedIn.this, huolto.kirja.Logout.class);
-                        explicit2.putExtra("username",username);
-                        startActivity(explicit2);
-                        return true;
+                        logoutAlert();
                 }
                 return false;
             }
         });
+    }
+
+    // Function for displaying the AlertDialog when logout
+    private void logoutAlert() {
+        new AlertDialog.Builder(this)
+                // Message to be displayed on the alert
+                .setMessage("Haluatko varmasti poistua?")
+                // Positive button onclick event
+                .setPositiveButton("Kirjaudu Ulos", (dialogInterface, i) -> {
+                    this.finishAffinity();
+                })
+                // Negative button onclick event
+                .setNegativeButton("Peruuta", (dialogInterface, i) -> {
+
+                })
+                .show();
     }
 
     public void initializeListView() {

@@ -1,6 +1,7 @@
 package huolto.kirja;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -59,13 +60,28 @@ public class AddVehicle extends AppCompatActivity {
                     case R.id.addService:
                         return true;
                     case R.id.logOut:
-                        Intent explicit2 = new Intent(AddVehicle.this, huolto.kirja.Logout.class);
-                        explicit2.putExtra("username",username);
-                        startActivity(explicit2);
-                        return true;
+                        logoutAlert();
                 }
                 return false;
             }
         });
     }
+
+    // Function for displaying the AlertDialog when logout
+    private void logoutAlert() {
+        new AlertDialog.Builder(this)
+                // Message to be displayed on the alert
+                .setMessage("Haluatko varmasti poistua?")
+                // Positive button onclick event
+                .setPositiveButton("Kirjaudu Ulos", (dialogInterface, i) -> {
+                    this.finishAffinity();
+                })
+                // Negative button onclick event
+                .setNegativeButton("Peruuta", (dialogInterface, i) -> {
+
+                })
+                .show();
+    }
+
+
 }
