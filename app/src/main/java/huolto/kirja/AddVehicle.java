@@ -61,6 +61,7 @@ public class AddVehicle extends AppCompatActivity {
                         return true;
                     case R.id.logOut:
                         logoutAlert();
+                        return true;
                 }
                 return false;
             }
