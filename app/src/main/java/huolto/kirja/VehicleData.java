@@ -146,7 +146,7 @@ public class VehicleData extends AppCompatActivity {
 
     private void initializeListView(){
         // new array adapter for listview
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lvArrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(VehicleData.this, android.R.layout.simple_list_item_1, lvArrayList);
         String username = getIntent().getStringExtra("username");
         String vehicleName = getIntent().getStringExtra("vehicleName");
         String search = "user/" + username + "/" + "vehicles/" + vehicleName;
