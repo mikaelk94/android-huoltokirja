@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
         android:ems="10"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:hint="@string/car_brand"
         android:inputType="textPersonName"
         app:layout_constraintHorizontal_bias="0.5"
