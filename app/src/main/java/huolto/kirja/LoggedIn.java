@@ -104,7 +104,7 @@ public class LoggedIn extends AppCompatActivity {
 
     public void initializeListView() {
         // creating new array adapter for listview
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ArrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoggedIn.this, android.R.layout.simple_dropdown_item_1line, ArrayList);
         String username = getIntent().getStringExtra("username");
         String search = "user/" + username + "/vehicles";
 
