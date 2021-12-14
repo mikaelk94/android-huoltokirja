@@ -13,8 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class Register extends AppCompatActivity {
     Button btnCreate;
@@ -55,14 +59,35 @@ public class Register extends AppCompatActivity {
 
             else
             {
-                myRef.child(username).setValue(userinfo); // nyt voidaan luoda useita käyttäjiä uniikkien usernamejen kautta
-            }
+                Query checkUser = myRef.orderByChild("username").equalTo(username);
+                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            String UserFromDB = snapshot.child(username).child("username").getValue(String.class);
 
-            Toast.makeText(Register.this,"Käyttäjä luotu",Toast.LENGTH_LONG).show();
-            etUsername.setText("");
-            etPassword.setText("");
-            Intent explicit = new Intent(Register.this, MainActivity.class);
-            startActivity(explicit);
+                            if(UserFromDB.equals(username)){
+                                Toast.makeText(Register.this,"Käyttäjänimi on jo olemassa",Toast.LENGTH_LONG).show();
+                                etUsername.setText("");
+                            }
+                        }
+                        else {
+                            myRef.child(username).setValue(userinfo); // nyt voidaan luoda useita käyttäjiä uniikkien usernamejen kautta
+                            Toast.makeText(Register.this,"Käyttäjä luotu",Toast.LENGTH_LONG).show();
+                            etUsername.setText("");
+                            etPassword.setText("");
+                            Intent explicit = new Intent(Register.this, MainActivity.class);
+                            startActivity(explicit);
+                            finish();
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
         });
     }
 
