@@ -60,7 +60,7 @@ public class Register extends AppCompatActivity {
             else
             {
                 Query checkUser = myRef.orderByChild("username").equalTo(username);
-                checkUser.addValueEventListener(new ValueEventListener() {
+                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
